@@ -27,7 +27,7 @@ import javax.servlet.UnavailableException;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.groups.DynamicGroup;
-import org.fenixedu.bennu.core.groups.NobodyGroup;
+import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.spring.portal.SpringApplication;
 import org.fenixedu.bennu.spring.portal.SpringFunctionality;
@@ -182,8 +182,8 @@ public class SpacesController {
     public String accessManagement(@PathVariable Space space, Model model) throws UnavailableException {
         canWrite(space);
         SpaceAccessBean accessBean = new SpaceAccessBean();
-        accessBean.setManagementGroup(space.getManagementGroup() != null ? space.getManagementGroup() : NobodyGroup.get());
-        accessBean.setOccupationGroup(space.getOccupationsGroup() != null ? space.getOccupationsGroup() : NobodyGroup.get());
+        accessBean.setManagementGroup(space.getManagementGroup() != null ? space.getManagementGroup() : Group.nobody());
+        accessBean.setOccupationGroup(space.getOccupationsGroup() != null ? space.getOccupationsGroup() : Group.nobody());
         model.addAttribute("spacebean", accessBean);
         model.addAttribute("space", space);
         model.addAttribute("action", "/spaces/access/" + space.getExternalId());
